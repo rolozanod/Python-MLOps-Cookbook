@@ -14,3 +14,9 @@ lint:
 	#docker run --rm -i hadolint/hadolint < Dockerfile
 	
 all: install lint test
+
+run-kube:
+	eval $(minikube docker-env) &&\
+		docker build --tag=mlops-cookbook . &&\
+		kubectl apply -f kube-mlops.yaml &&\
+		minikube tunnel
